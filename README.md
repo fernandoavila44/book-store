@@ -37,3 +37,19 @@ GET	/books/:id	Obtener un libro por ID
 ✔️ Búsqueda de libros (filtrado por título)
 ✔️ Checkout (simulación de compra)
 ✔️ Diseño responsive
+
+#### Flujo de trabajo para estudiantes
+
+# Clonar el repositorio
+git clone https://github.com/tu-usuario/tu-repositorio.git
+cd tu-repositorio
+
+# Crear una rama nueva (recomendación: usar su nombre)
+git checkout -b nombre-estudiante-feature
+
+# Hacer sus cambios y commits
+git add .
+git commit -m "Descripción de los cambios"
+
+# Subir su rama al repositorio
+git push origin nombre-estudiante-feature
