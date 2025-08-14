@@ -5,7 +5,7 @@ import type { CartItem } from '../types/cart';
 
 
 const Cart: React.FC = () => {
-  const { state } = useCart();
+  const { state, dispatch } = useCart();
   const navigate = useNavigate();
 
   const handleCheckout = () => {
@@ -29,9 +29,7 @@ const Cart: React.FC = () => {
                   <p>${item.price.toFixed(2)} x {item.quantity}</p>
                 </div>
                 <button
-                  onClick={() => { }}
-                  aria-label={`Eliminar ${item.title} del carrito`}
-                >
+                  onClick={() => dispatch({ type: 'REMOVE_ITEM', payload: item.id })}>
                   Eliminar
                 </button>
               </li>

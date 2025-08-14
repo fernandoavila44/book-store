@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const CheckoutPage: React.FC = () => {
   const navigate = useNavigate()
-  const { state } = useCart();
+  const { state, dispatch } = useCart();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,15 +17,39 @@ const CheckoutPage: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Aquí iría la lógica de envío a un backend
-
     //TODO: 📌 Implementar limpieza de carrito despues de que la compra fue satisfactoria
-    alert('Compra realizada con éxito!');
-    navigate('/')
-  };
 
+
+    try {
+      const response = await fetch('http://localhost:3001/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          customer: formData,
+          items: state.items,
+          total: state.total
+        })
+      });
+
+      if (response.ok) {
+        throw new Error('Error en la compra');
+      }
+
+      dispatch({ type: 'CLEAR_CART' });
+
+      alert('Compra realizada con éxito!');
+      navigate('/');
+      
+    } catch (error) {
+      alert(error instanceof Error ? error.message : 'Ocurrió un error');
+    }
+  };
+    
   return (
     <div className="checkout-page">
       <h1>Finalizar Compra</h1>
