@@ -21,7 +21,7 @@ const BookList = () => {
             onClick={() => { }}
             aria-label={`Añadir ${book.title} al carrito`}
           >
-            Añadir al carrito
+            Añadir carro
           </button>
         </div>
       ))}
