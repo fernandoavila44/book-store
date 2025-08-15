@@ -6,11 +6,11 @@ export interface CartItem extends Book {
 
 export type CartAction =
   | { type: 'ADD_ITEM'; payload: Book }
-  | { type: 'REMOVE_ITEM'; payload: number }
+  | { type: 'REMOVE_ITEM'; payload: Book }
   | { type: 'CLEAR_CART' };
 
 export interface CartState {
-  items: CartItem[];
+  items: CartItem[]; 
   total: number;
 }
 
