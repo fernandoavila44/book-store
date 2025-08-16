@@ -4,8 +4,8 @@ import type { CartItem } from '../types/cart';
 import { useNavigate } from 'react-router-dom';
 
 const CheckoutPage: React.FC = () => {
-  const navigate = useNavigate()
-  const { state } = useCart();
+  const navigate = useNavigate();
+  const { state, dispatch } = useCart(); // 📌 obtener dispatch
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,11 +19,13 @@ const CheckoutPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Aquí iría la lógica de envío a un backend
 
-    //TODO: 📌 Implementar limpieza de carrito despues de que la compra fue satisfactoria
     alert('Compra realizada con éxito!');
-    navigate('/')
+
+    // Limpiar el carrito después de la compra
+    dispatch({ type: 'CLEAR_CART' });
+
+    navigate('/');
   };
 
   return (
