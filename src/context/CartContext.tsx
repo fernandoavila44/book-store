@@ -3,8 +3,51 @@ import type { CartAction, CartContextType, CartState } from '../types/cart';
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-//TODO: 📌 Implementar el reducer con acciones ADD_ITEM, REMOVE_ITEM y CLEAR para limpiar el carrito completamente
+// Función reducer
 const cartReducer = (state: CartState, action: CartAction): CartState => {
+  switch (action.type) {
+    case 'ADD_ITEM': {
+      const book = action.payload;      
+      
+      const existingItemIndex = state.items.findIndex(item => item.id === book.id);
+      
+      let newItems;
+      if (existingItemIndex >= 0) {
+        
+        newItems = [...state.items];
+        newItems[existingItemIndex] = {
+          ...newItems[existingItemIndex],
+          quantity: newItems[existingItemIndex].quantity + 1
+        };
+      } else {
+        
+        newItems = [...state.items, { ...book, quantity: 1 }];
+      }
+      
+      
+      const newTotal = newItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+      
+      return { items: newItems, total: newTotal };
+    }
+    
+    case 'REMOVE_ITEM': {
+      const bookId = action.payload;     
+      
+      const newItems = state.items.filter(item => item.id !== bookId);     
+      
+      const newTotal = newItems.reduce((total, item) => total + (item.price * item.quantity), 0);      
+      return { items: newItems, total: newTotal };
+    }
+    
+    case 'CLEAR_CART': {
+      
+      return { items: [], total: 0 };
+    }
+    
+    default:
+      
+      return state;
+  }
 };
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {

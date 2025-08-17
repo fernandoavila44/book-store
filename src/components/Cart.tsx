@@ -5,14 +5,17 @@ import type { CartItem } from '../types/cart';
 
 
 const Cart: React.FC = () => {
-  const { state } = useCart();
+  const { state, dispatch } = useCart();
   const navigate = useNavigate();
 
   const handleCheckout = () => {
     navigate('/checkout');
   };
 
-  //TODO: 📌 Implementar funcion para eliminar un libro del carrito
+  // Función para eliminar un libro del carrito
+  const removeFromCart = (bookId: number) => {
+    dispatch({ type: 'REMOVE_ITEM', payload: bookId });
+  };
 
   return (
     <div className="cart-container">
@@ -29,7 +32,7 @@ const Cart: React.FC = () => {
                   <p>${item.price.toFixed(2)} x {item.quantity}</p>
                 </div>
                 <button
-                  onClick={() => { }}
+                  onClick={() => removeFromCart(item.id)}
                   aria-label={`Eliminar ${item.title} del carrito`}
                 >
                   Eliminar
