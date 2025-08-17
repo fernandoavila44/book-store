@@ -61,8 +61,12 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, { items: [], total: 0 });
 
+  const clearCart = () => dispatch({ type: 'CLEAR_CART' });
+  const addItem = (product: Product) => dispatch({ type: 'ADD_ITEM', payload: product });
+  const removeItem = (id: number) => dispatch({ type: 'REMOVE_ITEM', payload: id });
+
   return (
-    <CartContext.Provider value={{ state, dispatch }}>
+    <CartContext.Provider value={{ state, dispatch, clearCart, addItem, removeItem }}>
       {children}
     </CartContext.Provider>
   );
