@@ -40,21 +40,18 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
     }
 
     case "REMOVE_ITEM": {
-      const updatedItems = state.items
-        .map((item) =>
-          String(item.id) === String(action.payload.id)
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        )
-        .filter((item) => item.quantity > 0);
+  const updatedItems = state.items.filter(
+    (item) => item.id !== action.payload.id
+  );
 
-      const updatedTotal = updatedItems.reduce(
-        (sum, item) => sum + item.price * item.quantity,
-        0
-      );
+  const updatedTotal = updatedItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
-      return { items: updatedItems, total: updatedTotal };
-    }
+  return { items: updatedItems, total: updatedTotal };
+}
+
 
     case "CLEAR_CART":
       return { items: [], total: 0 };

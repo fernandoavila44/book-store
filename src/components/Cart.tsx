@@ -1,18 +1,15 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
-import type { CartItem } from '../types/cart';
-
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+import type { CartItem } from "../types/cart";
 
 const Cart: React.FC = () => {
-  const { state } = useCart();
+  const { state, dispatch } = useCart();
   const navigate = useNavigate();
 
   const handleCheckout = () => {
-    navigate('/checkout');
+    navigate("/checkout");
   };
-
-  //TODO: 📌 Implementar funcion para eliminar un libro del carrito
 
   return (
     <div className="cart-container">
@@ -26,23 +23,31 @@ const Cart: React.FC = () => {
               <li key={item.id} className="cart-item">
                 <div>
                   <h3>{item.title}</h3>
-                  <p>${item.price.toFixed(2)} x {item.quantity}</p>
+                  <p>
+                    ${item.price.toFixed(2)} x {item.quantity}
+                  </p>
                 </div>
                 <button
-                  onClick={() => { }}
+                  onClick={() =>
+                    dispatch({ type: "REMOVE_ITEM", payload: item })
+                  }
                   aria-label={`Eliminar ${item.title} del carrito`}
                 >
                   Eliminar
+                </button>
+
+                <button
+                  onClick={() => dispatch({ type: "CLEAR_CART" })}
+                  className="clear-button"
+                >
+                  Vaciar carrito
                 </button>
               </li>
             ))}
           </ul>
           <div className="cart-summary">
             <h3>Total: ${state.total.toFixed(2)}</h3>
-            <button
-              onClick={handleCheckout}
-              className="checkout-button"
-            >
+            <button onClick={handleCheckout} className="checkout-button">
               Proceder al Pago
             </button>
           </div>
