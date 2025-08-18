@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
-  const { state, dispatch } = useCart(); // 👈 añadimos dispatch
+  const { state, dispatch } = useCart(); 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
