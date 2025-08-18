@@ -10,7 +10,7 @@ const { dispatch } = useCart();
 
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error: {error}</p>;
-  //TODO: 📌 implementar funcion para agregar el libro al carrito
+  
 
     const handleAddToCart = (book: Book) => {
     dispatch({ type: 'ADD_ITEM', payload: book });

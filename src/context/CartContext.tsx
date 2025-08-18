@@ -5,14 +5,14 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 const initialState: CartState = { items: [], total: 0 };
 
-// Utilidad para recalcular el total a partir de los items (evita desajustes por sumas/restas)
+
 const recalcTotal = (state: CartState) => {
   const sum = state.items.reduce((acc, it) => acc + it.price * it.quantity, 0);
   // Redondeo amable a 2 decimales
   return Math.round(sum * 100) / 100;
 };
 
-// Reducer con acciones ADD_ITEM, REMOVE_ITEM, CLEAR_CART
+
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
     case 'ADD_ITEM': {
@@ -54,13 +54,12 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
-  // Evita recrear el objeto value en cada render
+
   const value = useMemo(() => ({ state, dispatch }), [state]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {

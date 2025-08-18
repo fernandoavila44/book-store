@@ -1,39 +1,46 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import type { CartItem } from '../types/cart';
 
+const formatPrice = (v: number) => `$${v.toFixed(2)}`;
 
 const Cart: React.FC = () => {
   const { state, dispatch } = useCart();
   const navigate = useNavigate();
 
-  const handleCheckout = () => {
+  const { items, total } = state;
+
+  const handleCheckout = useCallback(() => {
     navigate('/checkout');
-  };
+  }, [navigate]);
 
-  //TODO: 📌 Implementar funcion para eliminar un libro del carrito
-
-  const handleRemoveItem = (id: number) => {
+  const handleRemoveItem = useCallback((id: number) => {
     dispatch({ type: 'REMOVE_ITEM', payload: id });
-  };
+  }, [dispatch]);
 
   return (
-    <div className="cart-container">
+    <div className="cart-container" data-testid="cart">
       <h2>Tu Carrito</h2>
-      {state.items.length === 0 ? (
+
+      {items.length === 0 ? (
         <p>Tu carrito está vacío</p>
       ) : (
         <>
-          <ul className="cart-items">
-            {state.items.map((item: CartItem) => (
+          <ul className="cart-items" role="list">
+            {items.map((item: CartItem) => (
               <li key={item.id} className="cart-item">
-                <div>
-                  <h3>{item.title}</h3>
-                  <p>${item.price.toFixed(2)} x {item.quantity}</p>
+                <div className="cart-item-info">
+                  <h3 className="cart-item-title">{item.title}</h3>
+                  <p className="cart-item-price">
+                    {formatPrice(item.price)} x {item.quantity}
+                  </p>
                 </div>
+
                 <button
-                  onClick={() => { handleRemoveItem(item.id) }}
+                  type="button"
+                  onClick={() => handleRemoveItem(item.id)}
+                  className="remove-item-button"
                   aria-label={`Eliminar ${item.title} del carrito`}
                 >
                   Eliminar
@@ -41,9 +48,11 @@ const Cart: React.FC = () => {
               </li>
             ))}
           </ul>
-          <div className="cart-summary">
-            <h3>Total: ${state.total.toFixed(2)}</h3>
+
+          <div className="cart-summary" aria-live="polite">
+            <h3>Total: {formatPrice(total)}</h3>
             <button
+              type="button"
               onClick={handleCheckout}
               className="checkout-button"
             >

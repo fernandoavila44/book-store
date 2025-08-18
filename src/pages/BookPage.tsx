@@ -7,7 +7,7 @@ import type { Book } from '../types/book';
 const formatPrice = (value: number) => `$${value.toFixed(2)}`;
 
 const BookPage: React.FC = () => {
-  // useParams es un hook de react-router para leer parámetros de la ruta
+  
   const { id } = useParams<{ id: string }>();
   const { dispatch } = useCart();
 
@@ -25,8 +25,7 @@ const BookPage: React.FC = () => {
   if (error) return <p role="alert">Error: {error}</p>;
   if (!book) return <p>Libro no encontrado</p>;
 
-  // TODO: 📌 usar el hook useFetch para consultar la informacion de un libro mediante el id
-  // IMPORTANTE: 📌 Despues de realizar esta implementacion descomentar las lineas 10-11 y desde la 17 a la 25
+  
   return (
     <div className="book-detail" data-testid="book-detail">
       <h1>{book.title}</h1>

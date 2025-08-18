@@ -32,9 +32,9 @@ const CheckoutPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Aquí iría la lógica de envío a un backend
+    
     dispatch({ type: 'CLEAR_CART' });
-    // TODO: 📌 Implementar limpieza de carrito despues de que la compra fue satisfactoria
+   
     alert('Compra realizada con éxito!');
     navigate('/');
   };
