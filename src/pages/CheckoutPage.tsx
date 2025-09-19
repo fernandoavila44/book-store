@@ -1,88 +1,98 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
-import type { CartItem } from '../types/cart';
-import { useNavigate } from 'react-router-dom';
 
 const CheckoutPage: React.FC = () => {
-  const navigate = useNavigate()
-  const { state } = useCart();
+  const { state, dispatch } = useCart();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     address: ''
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+  const [orderPlaced, setOrderPlaced] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Aquí iría la lógica de envío a un backend
 
-    //TODO: 📌 Implementar limpieza de carrito despues de que la compra fue satisfactoria
-    alert('Compra realizada con éxito!');
-    navigate('/')
+    if (!formData.name || !formData.email || !formData.address) {
+      alert('Por favor completa todos los campos');
+      return;
+    }
+
+    // Simulación de pago / confirmación de pedido
+    setOrderPlaced(true);
+
+    // Vaciar carrito después de "comprar"
+    dispatch({ type: 'CLEAR_CART' });
   };
+
+  if (orderPlaced) {
+    return (
+      <div className="checkout-success">
+        <h2>¡Gracias por tu compra, {formData.name}!</h2>
+        <p>Tu pedido ha sido confirmado y será enviado a:</p>
+        <p><strong>{formData.address}</strong></p>
+      </div>
+    );
+  }
 
   return (
     <div className="checkout-page">
-      <h1>Finalizar Compra</h1>
+      <h2>Finalizar Compra</h2>
 
-      <div className="checkout-container">
-        <section className="cart-summary">
-          <h2>Resumen del Pedido</h2>
-          <ul>
-            {state.items.map((item: CartItem) => (
-              <li key={item.id}>
-                {item.title} - ${item.price.toFixed(2)} x {item.quantity}
-              </li>
-            ))}
-          </ul>
-          <h3>Total: ${state.total.toFixed(2)}</h3>
-        </section>
+      {state.items.length === 0 ? (
+        <p>No tienes productos en el carrito.</p>
+      ) : (
+        <>
+          <div className="order-summary">
+            <h3>Resumen de tu pedido:</h3>
+            <ul>
+              {state.items.map(item => (
+                <li key={item.id}>
+                  {item.title} x {item.quantity} - ${item.price.toFixed(2)}
+                </li>
+              ))}
+            </ul>
+            <h3>Total: ${state.total.toFixed(2)}</h3>
+          </div>
 
-        <form onSubmit={handleSubmit} className="checkout-form">
-          <h2>Información de Envío</h2>
-          <div className="form-group">
-            <label htmlFor="name">Nombre Completo</label>
+          <form className="checkout-form" onSubmit={handleSubmit}>
+            <h3>Datos del comprador</h3>
             <input
               type="text"
-              id="name"
               name="name"
+              placeholder="Nombre completo"
               value={formData.name}
-              onChange={handleInputChange}
-              required
+              onChange={handleChange}
             />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
             <input
               type="email"
-              id="email"
               name="email"
+              placeholder="Correo electrónico"
               value={formData.email}
-              onChange={handleInputChange}
-              required
+              onChange={handleChange}
             />
-          </div>
-          <div className="form-group">
-            <label htmlFor="address">Dirección</label>
             <input
               type="text"
-              id="address"
               name="address"
+              placeholder="Dirección de envío"
               value={formData.address}
-              onChange={handleInputChange}
-              required
+              onChange={handleChange}
             />
-          </div>
-          <button type="submit" className="submit-order">
-            Confirmar Pedido
-          </button>
-        </form>
-      </div>
+            <button type="submit" className="pay-button">
+              Confirmar y Pagar
+            </button>
+          </form>
+        </>
+      )}
     </div>
   );
 };
