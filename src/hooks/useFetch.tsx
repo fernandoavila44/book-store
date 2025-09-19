@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type FetchResult<T> = {
   data: T | null;
@@ -8,10 +8,30 @@ type FetchResult<T> = {
 
 const useFetch = <T,>(url: string): FetchResult<T> => {
 
-  //TODO: 📌 Completar los useState e implementar la funcion de data fetching para que utilice la url que se pasa por parametro
-  const [data,] = useState<T | null>(null);
-  const [loading,] = useState(true);
-  const [error,] = useState<string | null>(null);
+  //TODO✅: (COMPLETADO) 📌 Completar los useState e implementar la funcion de data fetching para que utilice la url que se pasa por parametro 
+  const [data, setData] = useState<T | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error(`Error HTTP: ${res.status}`);
+        }
+        const json = await res.json();
+        setData(json);
+      } catch (err: any) {
+        setError(err.message || "Error desconocido");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData()
+  }, [url])
 
 
 
