@@ -1,53 +1,58 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import type { CartItem } from '../types/cart';
-
 
 const Cart: React.FC = () => {
-  const { state } = useCart();
-  const navigate = useNavigate();
+  const { state, dispatch } = useCart();
 
-  const handleCheckout = () => {
-    navigate('/checkout');
-  };
-
-  //TODO: 📌 Implementar funcion para eliminar un libro del carrito
+  if (state.items.length === 0) {
+    return (
+      <div className="cart-container">
+        <h1>Tu carrito está vacío</h1>
+        <Link to="/" className="back-to-store">
+          Volver a la tienda
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="cart-container">
-      <h2>Tu Carrito</h2>
-      {state.items.length === 0 ? (
-        <p>Tu carrito está vacío</p>
-      ) : (
-        <>
-          <ul className="cart-items">
-            {state.items.map((item: CartItem) => (
-              <li key={item.id} className="cart-item">
-                <div>
-                  <h3>{item.title}</h3>
-                  <p>${item.price.toFixed(2)} x {item.quantity}</p>
-                </div>
-                <button
-                  onClick={() => { }}
-                  aria-label={`Eliminar ${item.title} del carrito`}
-                >
-                  Eliminar
-                </button>
-              </li>
-            ))}
-          </ul>
-          <div className="cart-summary">
-            <h3>Total: ${state.total.toFixed(2)}</h3>
+      <h1>Carrito de Compras</h1>
+
+      <ul className="cart-items">
+        {state.items.map(item => (
+          <li key={item.id} className="cart-item">
+            <div className="item-info">
+              <strong>{item.title}</strong>
+              <p>Precio: ${item.price.toFixed(2)}</p>
+              <p>Cantidad: {item.quantity}</p>
+            </div>
             <button
-              onClick={handleCheckout}
-              className="checkout-button"
+              onClick={() => dispatch({ type: 'REMOVE_ITEM', payload: item.id })}
+              className="remove-item"
             >
-              Proceder al Pago
+              Eliminar
             </button>
-          </div>
-        </>
-      )}
+          </li>
+        ))}
+      </ul>
+
+      <div className="cart-summary">
+        <h2>Total: ${state.total.toFixed(2)}</h2>
+      </div>
+
+      <div className="cart-actions">
+        <button
+          onClick={() => dispatch({ type: 'CLEAR_CART' })}
+          className="clear-cart"
+        >
+          Vaciar carrito
+        </button>
+        <Link to="/checkout" className="checkout-button">
+          Ir al pago
+        </Link>
+      </div>
     </div>
   );
 };

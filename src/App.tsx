@@ -1,27 +1,38 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
-import Home from './pages/Home';
+import BookList from './components/BookList';
+import Cart from './components/Cart';
 import BookPage from './pages/BookPage';
 import CheckoutPage from './pages/CheckoutPage';
-import Navbar from './components/Navbar';
-import CartPage from './pages/CartPage';
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <CartProvider>
-        <Navbar />
-        <main className="container">
+    <CartProvider>
+      <Router>
+        <header className="navbar">
+          <nav>
+            <ul className="nav-links">
+              <li>
+                <Link to="/">Inicio</Link>
+              </li>
+              <li>
+                <Link to="/cart">Carrito</Link>
+              </li>
+            </ul>
+          </nav>
+        </header>
+
+        <main className="main-content">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/book/:id" element={<BookPage />} />
-            <Route path="/cart" element={<CartPage />} />
+            <Route path="/" element={<BookList />} />
+            <Route path="/books/:id" element={<BookPage />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<CheckoutPage />} />
           </Routes>
         </main>
-      </CartProvider>
-    </Router>
+      </Router>
+    </CartProvider>
   );
 };
 

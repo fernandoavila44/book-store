@@ -18,3 +18,4 @@ export interface CartContextType {
   state: CartState;
   dispatch: React.Dispatch<CartAction>;
 }
+
