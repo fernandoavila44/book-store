@@ -3,6 +3,7 @@ import useFetch from '../hooks/useFetch';
 import type { Book } from '../types/book';
 import { useCart } from '../context/CartContext';
 
+
 const BookList = () => {
   // Usar useFetch para obtener libros de la API
   const { data: books, loading, error } = useFetch<Book[]>('http://localhost:3001/books');

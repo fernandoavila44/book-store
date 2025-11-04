@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+
 type FetchResult<T> = {
   data: T | null;
   loading: boolean;

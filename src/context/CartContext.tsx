@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, type ReactNode } from 'react';
 import type { CartAction, CartContextType, CartState } from '../types/cart';
 
+
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 //TODO: 📌 Implementar el reducer con acciones ADD_ITEM, REMOVE_ITEM y CLEAR para limpiar el carrito completamente
