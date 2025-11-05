@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { useCart } from '../context/CartContext';
-import type { CartItem } from '../types/cart';
+import { useCart, type CartItem } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 
 const CheckoutPage: React.FC = () => {
   const navigate = useNavigate()
-  const { state } = useCart();
+  const { state, dispatch } = useCart();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,7 +20,9 @@ const CheckoutPage: React.FC = () => {
     e.preventDefault();
     // Aquí iría la lógica de envío a un backend
 
-    //TODO: 📌 Implementar limpieza de carrito despues de que la compra fue satisfactoria
+    // Se envía la acción 'CLEAR' para vaciar el carrito.
+    dispatch({ type: 'CLEAR' });
+    
     alert('Compra realizada con éxito!');
     navigate('/')
   };
