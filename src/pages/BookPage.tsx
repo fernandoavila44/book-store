@@ -5,6 +5,7 @@ import useFetch from '../hooks/useFetch';
 import type { Book } from '../types/book';
 
 
+
 const BookPage: React.FC = () => {
   //useParams es un hook de react router => https://reactrouter.com/api/hooks/useParams
   const { id } = useParams<{ id: string }>();
