@@ -40,7 +40,10 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 };
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, { items: [], total: 0 });
+  const [state, dispatch] = useReducer(cartReducer, {
+     items: [], 
+     total: 0 
+  });
 
   return (
     <CartContext.Provider value={{ state, dispatch }}>
