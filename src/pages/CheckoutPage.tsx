@@ -4,26 +4,29 @@ import type { CartItem } from '../types/cart';
 import { useNavigate } from 'react-router-dom';
 
 const CheckoutPage: React.FC = () => {
-  const navigate = useNavigate()
-  const { state } = useCart();
+  const navigate = useNavigate();
+  const { state, dispatch } = useCart();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    address: ''
+    address: '',
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Aquí iría la lógica de envío a un backend
 
-    //TODO: 📌 Implementar limpieza de carrito despues de que la compra fue satisfactoria
+    // Limpiar carrito al confirmar compra
+    dispatch({ type: 'CLEAR_CART' });
+
     alert('Compra realizada con éxito!');
-    navigate('/')
+    navigate('/');
   };
 
   return (
@@ -45,6 +48,7 @@ const CheckoutPage: React.FC = () => {
 
         <form onSubmit={handleSubmit} className="checkout-form">
           <h2>Información de Envío</h2>
+
           <div className="form-group">
             <label htmlFor="name">Nombre Completo</label>
             <input
@@ -56,6 +60,7 @@ const CheckoutPage: React.FC = () => {
               required
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -67,6 +72,7 @@ const CheckoutPage: React.FC = () => {
               required
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="address">Dirección</label>
             <input
@@ -78,6 +84,7 @@ const CheckoutPage: React.FC = () => {
               required
             />
           </div>
+
           <button type="submit" className="submit-order">
             Confirmar Pedido
           </button>
