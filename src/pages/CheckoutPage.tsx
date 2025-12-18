@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const CheckoutPage: React.FC = () => {
   const navigate = useNavigate()
-  const { state } = useCart();
+  const { state, dispatch } = useCart();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,6 +23,7 @@ const CheckoutPage: React.FC = () => {
 
     //TODO: 📌 Implementar limpieza de carrito despues de que la compra fue satisfactoria
     alert('Compra realizada con éxito!');
+    dispatch({ type: 'CLEAR_CART' });
     navigate('/')
   };
 
