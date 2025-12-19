@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import type { CartItem } from '../types/cart';
 
-
 const Cart: React.FC = () => {
-  const { state } = useCart();
+  const { state, dispatch } = useCart();
   const navigate = useNavigate();
 
   const handleCheckout = () => {
@@ -13,10 +12,14 @@ const Cart: React.FC = () => {
   };
 
   //TODO: 📌 Implementar funcion para eliminar un libro del carrito
+  const removeFromCart = (id: number) => {
+    dispatch({ type: 'REMOVE_ITEM', payload: id });
+  };
 
   return (
     <div className="cart-container">
       <h2>Tu Carrito</h2>
+
       {state.items.length === 0 ? (
         <p>Tu carrito está vacío</p>
       ) : (
@@ -26,10 +29,13 @@ const Cart: React.FC = () => {
               <li key={item.id} className="cart-item">
                 <div>
                   <h3>{item.title}</h3>
-                  <p>${item.price.toFixed(2)} x {item.quantity}</p>
+                  <p>
+                    ${item.price.toFixed(2)} x {item.quantity}
+                  </p>
                 </div>
+
                 <button
-                  onClick={() => { }}
+                  onClick={() => removeFromCart(item.id)}
                   aria-label={`Eliminar ${item.title} del carrito`}
                 >
                   Eliminar
@@ -37,6 +43,7 @@ const Cart: React.FC = () => {
               </li>
             ))}
           </ul>
+
           <div className="cart-summary">
             <h3>Total: ${state.total.toFixed(2)}</h3>
             <button
