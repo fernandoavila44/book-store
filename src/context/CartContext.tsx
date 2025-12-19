@@ -5,7 +5,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 //TODO: 📌 Implementar el reducer con acciones ADD_ITEM, REMOVE_ITEM y CLEAR para limpiar el carrito completamente
 const cartReducer = (state: CartState, action: CartAction): CartState => {
-  switch (action.type) {
+  switch (action.type){
     case 'ADD_ITEM': {
       const existingItem = state.items.find(
         item => item.id === action.payload.id
