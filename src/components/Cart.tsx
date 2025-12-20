@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import type { CartItem } from '../types/cart';
 
 
 const Cart: React.FC = () => {
-  const { state } = useCart();
+  const { state, dispatch } = useCart();
   const navigate = useNavigate();
 
   const handleCheckout = () => {
@@ -13,6 +13,12 @@ const Cart: React.FC = () => {
   };
 
   //TODO: 📌 Implementar funcion para eliminar un libro del carrito
+  const handleRemoveItem = useCallback(
+    (id: number) => {
+      dispatch({ type: 'REMOVE_ITEM', payload: id });
+    },
+    [dispatch]
+  );
 
   return (
     <div className="cart-container">
@@ -26,10 +32,12 @@ const Cart: React.FC = () => {
               <li key={item.id} className="cart-item">
                 <div>
                   <h3>{item.title}</h3>
-                  <p>${item.price.toFixed(2)} x {item.quantity}</p>
+                  <p>
+                    ${item.price.toFixed(2)} x {item.quantity}
+                  </p>
                 </div>
                 <button
-                  onClick={() => { }}
+                  onClick={() => handleRemoveItem(item.id)}
                   aria-label={`Eliminar ${item.title} del carrito`}
                 >
                   Eliminar
