@@ -1,21 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-type FetchResult<T> = {
-  data: T | null;
-  loading: boolean;
-  error: string | null;
-};
+function useFetch<T>(url: string) {
+  const [data, setData] = useState<T | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-const useFetch = <T,>(url: string): FetchResult<T> => {
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
 
-  //TODO: 📌 Completar los useState e implementar la funcion de data fetching para que utilice la url que se pasa por parametro
-  const [data,] = useState<T | null>(null);
-  const [loading,] = useState(true);
-  const [error,] = useState<string | null>(null);
-
-
+    fetch(url)
+      .then((res) => {
+        if (!res.ok) throw new Error('Error al obtener los datos');
+        return res.json();
+      })
+      .then((data: T) => setData(data))
+      .catch((err: Error) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, [url]);
 
   return { data, loading, error };
-};
+}
 
 export default useFetch;

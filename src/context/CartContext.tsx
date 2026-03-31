@@ -1,27 +1,60 @@
-import React, { createContext, useContext, useReducer, type ReactNode } from 'react';
-import type { CartAction, CartContextType, CartState } from '../types/cart';
+import React, { createContext, useReducer, useContext } from 'react';
+import type { CartState, CartAction, CartContextType } from '../types/cart';
+
+const initialState: CartState = {
+  items: [],
+  total: 0,
+};
+
+function cartReducer(state: CartState, action: CartAction): CartState {
+  switch (action.type) {
+
+    case 'ADD_ITEM': {
+      const existing = state.items.find((i) => i.id === action.payload.id);
+      const updatedItems = existing
+        ? state.items.map((i) =>
+            i.id === action.payload.id
+              ? { ...i, quantity: i.quantity + 1 }
+              : i
+          )
+        : [...state.items, { ...action.payload, quantity: 1 }];
+
+      return {
+        items: updatedItems,
+        total: updatedItems.reduce((acc, i) => acc + i.price * i.quantity, 0),
+      };
+    }
+
+    case 'REMOVE_ITEM': {
+      const updatedItems = state.items.filter((i) => i.id !== action.payload);
+      return {
+        items: updatedItems,
+        total: updatedItems.reduce((acc, i) => acc + i.price * i.quantity, 0),
+      };
+    }
+
+    case 'CLEAR_CART':
+      return initialState;
+
+    default:
+      return state;
+  }
+}
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-//TODO: 📌 Implementar el reducer con acciones ADD_ITEM, REMOVE_ITEM y CLEAR para limpiar el carrito completamente
-const cartReducer = (state: CartState, action: CartAction): CartState => {
-};
-
-export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, { items: [], total: 0 });
+export function CartProvider({ children }: { children: React.ReactNode }) {
+  const [state, dispatch] = useReducer(cartReducer, initialState);
 
   return (
     <CartContext.Provider value={{ state, dispatch }}>
       {children}
     </CartContext.Provider>
   );
-};
+}
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const useCart = () => {
+export function useCart(): CartContextType {
   const context = useContext(CartContext);
-  if (!context) {
-    throw new Error('useCart debe usarse dentro de un CartProvider');
-  }
+  if (!context) throw new Error('useCart debe usarse dentro de CartProvider');
   return context;
-};
+}
