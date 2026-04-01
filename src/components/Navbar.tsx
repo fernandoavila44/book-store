@@ -1,10 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useMemo } from 'react';
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const { state } = useCart();
+  const totalItems = useMemo(() => {
+  return state.items.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
+}, [state.items]);
 
   return (
     <nav className="navbar">
@@ -15,7 +22,7 @@ const Navbar: React.FC = () => {
           onClick={() => navigate('/cart')}
           className="cart-button"
         >
-          Carrito ({state.items.length})
+          Carrito ({totalItems})
         </button>
       </div>
     </nav>
