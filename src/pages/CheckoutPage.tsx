@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const CheckoutPage: React.FC = () => {
   const navigate = useNavigate()
-  const { state } = useCart();
+  const { state, dispatch } = useCart();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,7 +19,9 @@ const CheckoutPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Aquí iría la lógica de envío a un backend
+
+
+   dispatch({ type: "CLEAR_CART" });
 
     //TODO: 📌 Implementar limpieza de carrito despues de que la compra fue satisfactoria
     alert('Compra realizada con éxito!');
