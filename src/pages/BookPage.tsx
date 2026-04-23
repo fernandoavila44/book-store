@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import useFetch from '../hooks/useFetch';
@@ -10,10 +10,17 @@ const BookPage: React.FC = () => {
   const { data: book, loading, error } = useFetch<Book>(
     `http://localhost:3001/books/${id}`
   );
+  const [isAnimating, setIsAnimating] = useState(false);
 
   if (loading) return <p>Cargando libro...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!book) return <p>Libro no encontrado</p>;
+
+  const handleAddToCart = () => {
+    dispatch({ type: 'ADD_ITEM', payload: book });
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 600);
+  };
 
   return (
     <div className="book-detail">
@@ -21,8 +28,8 @@ const BookPage: React.FC = () => {
       <p>Precio: ${book.price.toFixed(2)}</p>
       {book.description && <p>{book.description}</p>}
       <button
-        onClick={() => dispatch({ type: 'ADD_ITEM', payload: book })}
-        className="add-to-cart"
+        onClick={handleAddToCart}
+        className={`add-to-cart ${isAnimating ? 'animate' : ''}`}
       >
         Añadir al carrito
       </button>
