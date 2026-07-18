@@ -5,7 +5,6 @@
       "title": "El Señor de los Anillos",
       "author": "J.R.R. Tolkien",
       "price": 29.99,
-      "coverImage": "https://m.media-amazon.com/images/I/51EstVXM1UL._SL500_.jpg",
       "description": "Una épica aventura en la Tierra Media."
     },
     {
@@ -13,7 +12,6 @@
       "title": "Cien años de soledad",
       "author": "Gabriel García Márquez",
       "price": 24.95,
-      "coverImage": "https://m.media-amazon.com/images/I/51hzwfNh6VL._SL500_.jpg",
       "description": "La obra maestra del realismo mágico."
     },
     {
@@ -21,7 +19,6 @@
       "title": "1984",
       "author": "George Orwell",
       "price": 19.99,
-      "coverImage": "https://m.media-amazon.com/images/I/41aM4xOZxaL._SL500_.jpg",
       "description": "Una distopía sobre el control totalitario."
     },
     {
@@ -29,7 +26,6 @@
       "title": "Orgullo y prejuicio",
       "author": "Jane Austen",
       "price": 17.50,
-      "coverImage": "https://m.media-amazon.com/images/I/51E91D9Y1ZL._SL500_.jpg",
       "description": "Clásico de la literatura inglesa."
     },
     {
@@ -37,7 +33,6 @@
       "title": "Harry Potter y la piedra filosofal",
       "author": "J.K. Rowling",
       "price": 22.00,
-      "coverImage": "https://m.media-amazon.com/images/I/51DF6ZR8G7L._SL500_.jpg",
       "description": "El inicio de la saga del joven mago."
     }
   ]
