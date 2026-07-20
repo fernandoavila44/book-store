@@ -24,10 +24,16 @@ const BookList = () => {
     <div className="book-grid">
       {books?.map((book) => (
         <div key={book.id} className="book-card">
-          <Link to={`/book/${book.id}`}>
-            <h3>{book.title}</h3>
-          </Link>
-          <p>${book.price.toFixed(2)}</p>
+         
+          <div className='content-card'>
+            <div className='text-card'>
+              <Link to={`/book/${book.id}`}>
+              <h3>{book.title}</h3>
+              </Link>
+              <p>${book.price.toFixed(2)}</p>
+            </div>
+            <img src={book.coverImage} alt={book.title} style={{width: "60px"}} />
+          </div>
           <button
             onClick={() =>handleAddtToCart(book)}
             aria-label={`Añadir ${book.title} al carrito`}

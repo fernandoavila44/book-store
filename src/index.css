@@ -91,6 +91,11 @@ body {
   color: var(--dark-color);
 }
 
+.content-card {
+  display: flex;
+  justify-content: space-around;
+}
+
 .book-card button {
   background-color: var(--secondary-color);
   color: white;
