@@ -12,6 +12,8 @@ const CheckoutPage: React.FC = () => {
     address: ''
   });
 
+  const {dispatch} = useCart();
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -24,6 +26,7 @@ const CheckoutPage: React.FC = () => {
     //TODO: 📌 Implementar limpieza de carrito despues de que la compra fue satisfactoria
     alert('Compra realizada con éxito!');
     navigate('/')
+    dispatch({type: 'CLEAR_CART'})
   };
 
   return (

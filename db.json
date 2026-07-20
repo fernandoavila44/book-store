@@ -13,7 +13,7 @@
       "title": "Cien años de soledad",
       "author": "Gabriel García Márquez",
       "price": 24.95,
-      "coverImage": "https://m.media-amazon.com/images/I/51hzwfNh6VL._SL500_.jpg",
+      "coverImage": "/images/cien-anos-de-soledad.png"  ,
       "description": "La obra maestra del realismo mágico."
     },
     {
@@ -29,7 +29,7 @@
       "title": "Orgullo y prejuicio",
       "author": "Jane Austen",
       "price": 17.50,
-      "coverImage": "https://m.media-amazon.com/images/I/51E91D9Y1ZL._SL500_.jpg",
+      "coverImage": "/images/orgullo-y-prejuicio.png",
       "description": "Clásico de la literatura inglesa."
     },
     {

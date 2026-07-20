@@ -43,7 +43,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
     }
     default:
       return state;
-
+  }
 };
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
