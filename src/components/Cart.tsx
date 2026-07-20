@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import type { CartItem } from '../types/cart';
+import type { Book } from '../types/book';
 
 
 const Cart: React.FC = () => {
@@ -19,6 +20,11 @@ const Cart: React.FC = () => {
     dispatch({type: 'REMOVE_ITEM', payload: id});
   };
 
+    const handleAddtToCart = (book: Book) =>{
+    dispatch({type: 'ADD_ITEM', payload: book});
+  };
+
+
   return (
     <div className="cart-container">
       <h2>Tu Carrito</h2>
@@ -30,15 +36,26 @@ const Cart: React.FC = () => {
             {state.items.map((item: CartItem) => (
               <li key={item.id} className="cart-item">
                 <div>
-                  <h3>{item.title}</h3>
-                  <p>${item.price.toFixed(2)} x {item.quantity}</p>
+                  <img src={item.coverImage} alt={item.title} style={{width: "60px"}} />
+                  <div className='text-card'>
+                    <h3>{item.title}</h3>
+                    <p>${item.price.toFixed(2)} x {item.quantity}</p>
+                  </div>
                 </div>
-                <button
-                  onClick={() => handleDeleteToCart(item.id)}
-                  aria-label={`Eliminar ${item.title} del carrito`}
-                >
-                  Eliminar
-                </button>
+                <div className='group-button'>
+                  <button className="button-mas"
+                    onClick={() => handleAddtToCart(item)}
+                    aria-label={`Añadir ${item.title} del carrito`}
+                  >
+                    +
+                  </button>
+                  <button className="button-menos"
+                    onClick={() => handleDeleteToCart(item.id)}
+                    aria-label={`Eliminar ${item.title} del carrito`}
+                  >
+                    _
+                  </button>
+                </div>
               </li>
             ))}
           </ul>

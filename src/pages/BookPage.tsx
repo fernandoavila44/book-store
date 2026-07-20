@@ -19,7 +19,7 @@ const BookPage: React.FC = () => {
   return (
     <div className="book-detail">
       <h1>{book.title}</h1>
-       <img src={book.coverImage} alt={book.title} style={{width: "200px"}} />
+      <img src={book.coverImage} alt={book.title} style={{width: "200px"}} />
       <p>Precio: ${book.price.toFixed(2)}</p>
       {book.description && <p>{book.description}</p>}
       <button

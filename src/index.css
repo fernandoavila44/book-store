@@ -94,6 +94,7 @@ body {
 .content-card {
   display: flex;
   justify-content: space-around;
+
 }
 
 .book-card button {
@@ -169,7 +170,16 @@ body {
   border-bottom: 1px solid #eee;
 }
 
-.cart-item button {
+.cart-item > div:first-child {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 1rem;  
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* .cart-item button {
   background-color: var(--accent-color);
   color: white;
   border: none;
@@ -177,11 +187,11 @@ body {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
-}
+} */
 
-.cart-item button:hover {
+/* .cart-item button:hover {
   background-color: #c0392b;
-}
+} */
 
 .cart-summary {
   margin-top: 2rem;
@@ -296,7 +306,25 @@ body {
   margin-bottom: 1rem;
 }
 
-.retry-button {
+.button-menos {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-menos:hover {
+  background-color: #c0392b;
+}
+
+/* .retry-button:hover {
+  background-color: #2980b9;
+} */
+
+.button-mas {
   background-color: var(--secondary-color);
   color: white;
   border: none;
@@ -306,6 +334,16 @@ body {
   transition: background-color 0.3s;
 }
 
-.retry-button:hover {
-  background-color: #2980b9;
+.button-mas:hover{
+  background-color: #1d84c8
+  ;
 }
+
+.text-card {
+  margin-left: 1rem;
+}
+
+.cart-item button {
+  margin-right: 0.5rem;
+}
+
