@@ -56,11 +56,11 @@ git push origin nombre-estudiante-feature
 
 ##### Pasos a seguir
 
-1. Completar archivo Cartcontext.tsx
-2. Completar archivo useFetch.tsx
-3. Completar archivo Booklist.tsx
-4. Completar archivo Cart.tsx
-5. Completar archivo BookPage.tsx
-6. Completar archivo CheckoutPage.tsx
+1. Completar archivo Cartcontext.tsx ✅
+2. Completar archivo useFetch.tsx ✅
+3. Completar archivo Booklist.tsx ✅
+4. Completar archivo Cart.tsx ✅
+5. Completar archivo BookPage.tsx ✅
+6. Completar archivo CheckoutPage.tsx ✅
 
 Good Luck Budies!!!
