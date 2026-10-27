@@ -1,10 +1,11 @@
+
 {
   "books": [
     {
       "id": 1,
       "title": "El Señor de los Anillos",
       "author": "J.R.R. Tolkien",
-      "price": 29.99,
+      "price": 89900,
       "coverImage": "https://m.media-amazon.com/images/I/51EstVXM1UL._SL500_.jpg",
       "description": "Una épica aventura en la Tierra Media."
     },
@@ -12,15 +13,15 @@
       "id": 2,
       "title": "Cien años de soledad",
       "author": "Gabriel García Márquez",
-      "price": 24.95,
-      "coverImage": "https://m.media-amazon.com/images/I/51hzwfNh6VL._SL500_.jpg",
+      "price": 49900,
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9780307350275-L.jpg",
       "description": "La obra maestra del realismo mágico."
     },
     {
       "id": 3,
       "title": "1984",
       "author": "George Orwell",
-      "price": 19.99,
+      "price": 39900,
       "coverImage": "https://m.media-amazon.com/images/I/41aM4xOZxaL._SL500_.jpg",
       "description": "Una distopía sobre el control totalitario."
     },
@@ -28,15 +29,15 @@
       "id": 4,
       "title": "Orgullo y prejuicio",
       "author": "Jane Austen",
-      "price": 17.50,
-      "coverImage": "https://m.media-amazon.com/images/I/51E91D9Y1ZL._SL500_.jpg",
+      "price": 35900,
+      "coverImage": "https://covers.openlibrary.org/b/isbn/9788466319652-L.jpg",
       "description": "Clásico de la literatura inglesa."
     },
     {
       "id": 5,
       "title": "Harry Potter y la piedra filosofal",
       "author": "J.K. Rowling",
-      "price": 22.00,
+      "price": 54900,
       "coverImage": "https://m.media-amazon.com/images/I/51DF6ZR8G7L._SL500_.jpg",
       "description": "El inicio de la saga del joven mago."
     }
